@@ -128,7 +128,28 @@ public class StackUtil {
         move(stack);
         stack.add(top);
     }
-
+    public static Stack mapToStack(VersionedStack versionedStack) {
+        Stack result = new StaticStack();
+        for (int i = 0; i < versionedStack.count; i++) {
+            result.add(versionedStack.array[i]);
+        }
+        return result;
+    }
+    
+    /**
+     * Convierte una instancia de Stack a una instancia de VersionedStack.
+     * @param stack La pila a convertir.
+     * @return Una nueva instancia de VersionedStack con los mismos elementos.
+     */
+    public static VersionedStack mapToVersionedStack(Stack stack) {
+        VersionedStack versionedStack = new VersionedStack();
+        Stack aux = copy(stack); // Copiamos la pila para no modificar la original.
+        while (!aux.isEmpty()) {
+            versionedStack.add(aux.getTop());
+            aux.remove();
+        }
+        return versionedStack;
+    }
 
 }
 
